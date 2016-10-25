@@ -1,0 +1,12 @@
+{
+  "baseUrl": "https://api.ibm.xtify.com/3.0",
+  "appKey": {
+    "prod":"YOUR APP KEY"
+  },
+  "senderId": "YOUR GCM PROJECT ID",
+  "sessionsEnabled": true,
+  "sessionTimeout": 20,
+  "metricTimeInterval": 30,
+  "loglevel": "error",
+  "logfile": false
+}

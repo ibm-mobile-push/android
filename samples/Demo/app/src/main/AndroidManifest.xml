@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ibm.mce.samples.gcm" >
+
+    <permission
+        android:name="com.ibm.mce.samples.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.ibm.mce.samples.gcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
+    <application
+        android:name=".SampleApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <provider
+            android:name="com.ibm.mce.sdk.db.Provider"
+            android:authorities="com.ibm.mce.samples.gcm.MCE_PROVIDER"
+            android:exported="false" />
+
+
+
+
+
+        <activity
+            android:name=".MainSampleMenuActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegistrationDetailsSampleActivity"
+            android:label="@string/registration_details_name"
+            android:parentActivityName=".MainSampleMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
+            >
+        </activity>
+        <activity
+            android:name=".AttributesSampleActivity"
+            android:label="@string/attributes_name"
+            android:parentActivityName=".MainSampleMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
+        </activity>
+        <activity
+            android:name=".EventSampleActivity"
+            android:label="@string/event_test_name"
+            android:parentActivityName=".MainSampleMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
+        </activity>
+        <activity
+            android:name="com.ibm.mce.sdk.plugin.displayweb.DisplayWebViewActivity">
+        </activity>
+        <activity
+            android:name="com.ibm.mce.sdk.plugin.inbox.RichInboxActivity" android:configChanges="orientation" >
+        </activity>
+        <activity
+            android:name="com.ibm.mce.sdk.plugin.inbox.InboxMessageDisplayActivity" android:configChanges="orientation" >
+        </activity>
+
+        <receiver android:name="com.ibm.mce.sdk.gcm.GcmBroadcastReceiver" android:priority="999">
+        <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+            <category android:name="com.ibm.mce.samples.gcm" />
+        </intent-filter>
+        <intent-filter android:permission="com.google.android.c2dm.permission.SEND" android:priority="999">
+            <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+            <category android:name="com.ibm.mce.samples.gcm" />
+        </intent-filter>
+        </receiver>
+        <receiver android:name=".SampleGcmBroadcastReceiver" android:priority="1">
+            <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.ibm.mce.samples.gcm" />
+            </intent-filter>
+            <intent-filter android:permission="com.google.android.c2dm.permission.SEND" android:priority="1">
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.ibm.mce.samples.gcm" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".MceNotifier" >
+            <intent-filter>
+                <action android:name="com.ibm.mce.sdk.NOTIFIER" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.ibm.mce.sdk.notification.NotifActionReceiver" />
+        <receiver android:name="com.ibm.mce.sdk.wi.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.ibm.mce.sdk.gcm.GcmIntentService" />
+        <service android:name="com.ibm.mce.sdk.events.EventsAlarmListener" />
+        <service android:name="com.ibm.mce.sdk.registration.PhoneHomeIntentService" />
+        <service android:name="com.ibm.mce.sdk.registration.RegistrationIntentService" />
+        <service android:name="com.ibm.mce.sdk.attributes.AttributesQueueConsumer" />
+        <service android:name="com.ibm.mce.sdk.plugin.snooze.SnoozeIntentService" />
+        <service android:name="com.ibm.mce.sdk.plugin.inbox.InboxUpdateService" />
+
+
+    </application>
+
+</manifest>

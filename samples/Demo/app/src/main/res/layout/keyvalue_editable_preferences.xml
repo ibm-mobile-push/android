@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:minHeight="@dimen/key_value_prefs_min_height"
+    >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/keyView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/material_blue_grey_900"
+        android:textSize="@dimen/key_text_size"
+        android:paddingLeft="@dimen/key_horizontal_padding"
+        android:paddingRight="@dimen/key_horizontal_padding"
+        android:paddingTop="@dimen/key_vertical_padding"
+        android:paddingBottom="@dimen/key_vertical_padding"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/valueView"
+            android:textColor="@color/material_blue_grey_900"
+            android:inputType="text"
+            android:minWidth="300px"
+            android:paddingLeft="@dimen/value_horizontal_padding"
+            android:paddingRight="@dimen/value_horizontal_padding"
+            android:paddingTop="@dimen/value_vertical_padding"
+            android:paddingBottom="@dimen/value_vertical_padding"
+            android:textSize="@dimen/value_text_size"
+            android:text="AAAAAAAA"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="18pt"
+            android:id="@+id/valuePreferencesView"
+            android:textColor="@color/material_blue_grey_900"
+            android:inputType="text"
+            android:paddingLeft="@dimen/value_horizontal_padding"
+            android:paddingRight="@dimen/value_horizontal_padding"
+            android:paddingTop="@dimen/value_vertical_padding"
+            android:paddingBottom="@dimen/value_vertical_padding"
+            android:textSize="@dimen/value_text_size"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/valueView"
+            android:layout_toEndOf="@+id/valueView"
+            android:layout_marginLeft="61dp"
+            android:layout_marginStart="61dp" />
+
+</RelativeLayout>

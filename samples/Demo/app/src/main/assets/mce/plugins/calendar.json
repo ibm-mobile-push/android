@@ -1,0 +1,8 @@
+{
+  "notification-actions": [
+    {
+      "type": "calendar",
+      "class": "com.ibm.mce.sdk.plugin.calendar.AddToCalendarAction"
+    }
+  ]
+}

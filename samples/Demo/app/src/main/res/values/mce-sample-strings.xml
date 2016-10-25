@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IBM Mobile Push</string>
+    <string name="title">IBM Mobile Push GCM Demo Application</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="sdk_reg_subject">SDK Registration</string>
+    <string name="sdk_reg_msg_prefix">Channel ID</string>
+    <string name="gcm_reg_subject">GCM Registration</string>
+
+    <string name="registration_details_title">Registration Details</string>
+    <string name="send_test_events_title">Send Test Events</string>
+    <string name="send_user_attributes_title">Send User Attributes</string>
+    <string name="inapp_title">Show InApp</string>
+    <string name="inbox_title">Show Inbox</string>
+
+
+    <string name="registration_details_name">Registration Details</string>
+    <string name="registration_details_view_title">Credentials</string>
+
+    <string name="user_id_title">User ID</string>
+    <string name="channel_id_title">Channel ID</string>
+    <string name="appkey_title">App Key</string>
+
+    <string name="not_registered">Not registered yet</string>
+    <string name="credentials_details">User ID and Channel ID only known after registration. The registration process could take several minutes, If you have issues with registering a device make sure you have the correct certificate and appKey.</string>
+
+    <string name="no_sdk_reg_toast">SDK is not registered yet</string>
+    <string name="no_gcm_toast">GCM is not registered yet</string>
+
+    <string name="attributes_name">User Attributes</string>
+    <string name="attributes_view_title">Send User Attributes</string>
+
+    <string name="attr_key_title">Attribute Key</string>
+    <string name="attr_value_title">Attribute Value</string>
+    <string name="attr_action_title">Choose an Action</string>
+    <string name="attr_send_title">Click to Send</string>
+    <string name="attributes_details"></string>
+
+    <string name="attribute_action_set">Set</string>
+    <string name="attribute_action_update">Update</string>
+    <string name="attribute_action_delete">Delete</string>
+
+    <string name="attribute_default_key">key</string>
+    <string name="attribute_default_value">value</string>
+
+    <string name="attribute_send_failed">Failed to set the attribute</string>
+
+    <string name="attribute_action_succeeded">Attributes operation succeeded</string>
+    <string name="attribute_action_failed">Attributes operation failed</string>
+
+    <string name="event_test_name">Test Events</string>
+    <string name="event_test_view_title">Events</string>
+
+    <string name="event_send_title">Send Notification Click Event</string>
+    <string name="event_test_details">Click to send a test event. The event will be sent within 30 minutes from the moment the button is clicked</string>
+
+    <string name="event_send_succeeded">Send Event Succeeded</string>
+    <string name="event_send_failed">Send Event Failed</string>
+
+    <string name="title_activity_main_menu">Main Menu</string>
+    <string name="phone_home_failed">Phone home failed</string>
+    <string name="phone_home_succeeded">Phone home succeeded</string>
+
+    <string name="send_email_type">sendEmail</string>
+    <string name="calendar_type">calendar</string>
+    <string name="snooze_type">snooze</string>
+    <string name="displayweb_type">displayweb</string>
+    <string name="expandable_layout_type">demoLayour</string>
+	
+
+
+</resources>

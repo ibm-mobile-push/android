@@ -25,6 +25,7 @@ import com.ibm.mce.sdk.api.attribute.AttributesOperation;
 import com.ibm.mce.sdk.api.event.Event;
 import com.ibm.mce.sdk.api.notification.NotificationDetails;
 import com.ibm.mce.sdk.api.registration.RegistrationDetails;
+import com.ibm.mce.sdk.location.LocationEventsIntentService;
 import com.ibm.mce.sdk.plugin.inapp.InAppManager;
 import com.ibm.mce.samples.gcm.layout.ResourcesHelper;
 
@@ -76,7 +77,7 @@ public class MceNotifier extends MceBroadcastReceiver {
         Log.i(TAG, "Channel ID is: " + registrationDetails.getChannelId());
         Log.i(TAG, "User ID is: " + registrationDetails.getUserId());
 
-        showNotification(context,  resourcesHelper.getString("sdk_reg_subject"), resourcesHelper.getString("sdk_reg_msg_prefix")+": "+registrationDetails.getChannelId(), ACTION_SDK_REGISTRATION);
+        showNotification(context, resourcesHelper.getString("sdk_reg_subject"), resourcesHelper.getString("sdk_reg_msg_prefix") + ": " + registrationDetails.getChannelId(), ACTION_SDK_REGISTRATION);
     }
 
     @Override
@@ -151,6 +152,23 @@ public class MceNotifier extends MceBroadcastReceiver {
     @Override
     public void onEventsSend(Context context, List<Event> events) {
         Log.i(TAG, "-- Events were sent");
+        for(Event event : events) {
+            if(LocationEventsIntentService.GEOFENCE_EVENT_TYPE.equals(event.getType())) {
+                String geofenceId = null;
+                for(Attribute attribute : event.getAttributes()) {
+                    if(LocationEventsIntentService.GEOFENCE_ID_KEY.equals(attribute.getKey())) {
+                        geofenceId = (String)attribute.getValue();
+                    }
+                }
+                if(LocationEventsIntentService.GEOFENCE_ENTER_EVENT_NAME.equals(event.getName())) {
+                    Log.d(TAG, "Entered geogence "+geofenceId);
+                    showNotification(context, "geofence enter", geofenceId, "geofence");
+                } else if(LocationEventsIntentService.GEOFENCE_EXIT_EVENT_NAME.equals(event.getName())) {
+                    Log.d(TAG, "Exiting geogence "+geofenceId);
+                    showNotification(context, "geofence exit", geofenceId, "geofence");
+                }
+            }
+        }
 
         StringBuilder builder = new StringBuilder("{");
         if(events!=null && !events.isEmpty()) {
@@ -201,7 +219,7 @@ public class MceNotifier extends MceBroadcastReceiver {
     }
 
     private  void setNotificationPreferences(Context context,
-                                                   Notification notification) {
+                                             Notification notification) {
         if (MceSdk.getNotificationsClient().getNotificationsPreference().isSoundEnabled(context)) {
             Integer sound = MceSdk.getNotificationsClient().getNotificationsPreference().getSound(context);
             if (sound == null) {

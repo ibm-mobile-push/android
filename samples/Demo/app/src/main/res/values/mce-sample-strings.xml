@@ -15,7 +15,6 @@
     <string name="inapp_title">Show InApp</string>
     <string name="inbox_title">Show Inbox</string>
 
-
     <string name="registration_details_name">Registration Details</string>
     <string name="registration_details_view_title">Credentials</string>
 
@@ -68,7 +67,16 @@
     <string name="snooze_type">snooze</string>
     <string name="displayweb_type">displayweb</string>
     <string name="expandable_layout_type">demoLayour</string>
-	
+
+    <string name="title_activity_location">Locations</string>
+    <string name="enable_locations_text">Enable Locations</string>
+    <string name="disable_locations_text">Disable Locations</string>
+    <string name="show_geofences_text">Show Geofences</string>
+    <string name="google_app_id">YOUR_GOOGLE_PROJECT_IDS</string>
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
+        YOUR_GOOGLE_MAPS_KEY
+    </string>
+
 
 
 </resources>

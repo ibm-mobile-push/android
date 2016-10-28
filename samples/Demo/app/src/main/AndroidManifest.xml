@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
@@ -83,6 +85,18 @@
             android:name="com.ibm.mce.sdk.plugin.inbox.InboxMessageDisplayActivity" android:configChanges="orientation" >
         </activity>
 
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".LocationActivity"
+            android:label="@string/title_activity_location" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
+        </activity>
+
         <receiver android:name="com.ibm.mce.sdk.gcm.GcmBroadcastReceiver" android:priority="999">
         <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -137,6 +151,10 @@
         <service android:name="com.ibm.mce.sdk.attributes.AttributesQueueConsumer" />
         <service android:name="com.ibm.mce.sdk.plugin.snooze.SnoozeIntentService" />
         <service android:name="com.ibm.mce.sdk.plugin.inbox.InboxUpdateService" />
+        <service android:name="com.ibm.mce.sdk.location.LocationRetrieveService" />
+        <service android:name="com.ibm.mce.sdk.location.GeofenceIntentService" />
+        <service android:name="com.ibm.mce.sdk.location.LocationEventsIntentService" />
+        <service android:name="com.ibm.mce.sdk.location.LocationSyncAlarmListener" />
 
 
     </application>

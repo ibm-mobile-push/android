@@ -8,8 +8,13 @@
  */
 package com.ibm.mce.samples.gcm;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,11 +25,10 @@ import android.widget.Toast;
 
 import com.ibm.mce.sdk.api.MceSdk;
 import com.ibm.mce.sdk.api.registration.RegistrationDetails;
+import com.ibm.mce.sdk.location.LocationManager;
 import com.ibm.mce.sdk.plugin.inapp.InAppManager;
-import com.ibm.mce.sdk.plugin.inapp.InAppStorage;
 import com.ibm.mce.sdk.plugin.inbox.InboxMessagesClient;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,6 +40,7 @@ public class MainSampleMenuActivity extends ListSampleActivity {
     private static final int SEND_USER_ATTRIBUTES_INDEX = 2;
     private static final int INAPP_INDEX = 3;
     private static final int INBOX_INDEX = 4;
+    private static final int LOCATIONS_INDEX = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,7 @@ public class MainSampleMenuActivity extends ListSampleActivity {
     }
 
     private void showMainView() {
-        setupListView((ListView)findViewById(resourcesHelper.getId("listView")));
+        setupListView((ListView) findViewById(resourcesHelper.getId("listView")));
         if(isTitle()) {
             TextView titleView = (TextView) findViewById(resourcesHelper.getId("title"));
             titleView.setText(resourcesHelper.getString("title") + " " + MceSdk.getSdkVerNumber());
@@ -73,6 +78,7 @@ public class MainSampleMenuActivity extends ListSampleActivity {
         items.add(resourcesHelper.getString("send_user_attributes_title"));
         items.add(resourcesHelper.getString("inapp_title"));
         items.add(resourcesHelper.getString("inbox_title"));
+        items.add(resourcesHelper.getString("title_activity_location"));
         return items;
     }
 
@@ -138,6 +144,15 @@ public class MainSampleMenuActivity extends ListSampleActivity {
             inAppShown = true;
         } else if (position == INBOX_INDEX) {
             InboxMessagesClient.showInbox(getApplicationContext());
+        } else if (position == LOCATIONS_INDEX) {
+            RegistrationDetails registrationDetails = MceSdk.getRegistrationClient().getRegistrationDetails(getApplicationContext());
+            if (registrationDetails.getChannelId() == null || registrationDetails.getChannelId().length() == 0) {
+                Toast.makeText(MainSampleMenuActivity.this, resourcesHelper.getString("no_sdk_reg_toast"), Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), LocationActivity.class);
+                startActivity(intent);
+            }
         }
     }
 

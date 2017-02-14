@@ -74,7 +74,7 @@ public class EventSampleActivity extends ListSampleActivity {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         List<Attribute> attributes = new LinkedList<Attribute>();
         attributes.add(new StringAttribute("payload", "{\"sampleData\": \"A sample value\"}"));
-        Event event = new Event(Constants.Notifications.SIMPLE_NOTIFICATION_EVENT_TYPE, "appOpened", new Date(), attributes, "sampleAttribution");
+        Event event = new Event(Constants.Notifications.SIMPLE_NOTIFICATION_EVENT_TYPE, "appOpened", new Date(), attributes, "sampleAttribution", "sampleMailingId");
         OperationCallback<Event> callback = new OperationCallback<Event>() {
             @Override
             public void onSuccess(Event event, OperationResult result) {

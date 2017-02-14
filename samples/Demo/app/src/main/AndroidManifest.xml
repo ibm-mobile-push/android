@@ -2,24 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ibm.mce.samples.gcm" >
 
+    <!-- C2D_MESSAGE is required for receiving GCM messages -->
     <permission
         android:name="com.ibm.mce.samples.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
+    <!-- C2D_MESSAGE is required for receiving GCM messages -->
     <uses-permission android:name="com.ibm.mce.samples.gcm.permission.C2D_MESSAGE" />
+    <!-- c2dm.permission.RECEIVE is required for receiving GCM messages -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!-- INTERNET is required for calling the MCE server -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- WAKE_LOC is required for running scheduled tasks -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- RECEIVE_BOOT_COMPLETED is required for performing SDK task on device startup -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- VIBRATE is required for notification configuration -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- CALL_PHONE is optional. It is only required is the dial action is used -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- READ_PHONE_STATE is required for sending device data to the MCE server -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- ACCESS_FINE_LOCATION is optional. It is only required if location services needs to use GPS location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- ACCESS_COARSE_LOCATION is optional. It is only required if location services needs to use network location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <!-- BLUETOOTH is optional. It is only required if iBeacons are supported -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!-- BLUETOOTH_ADMIN is optional. It is only required if iBeacons are supported -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".SampleApplication"
@@ -28,10 +39,12 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
+        <!-- This is required for google play services -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!-- The provider is needed for the SDK database -->
         <provider
             android:name="com.ibm.mce.sdk.db.Provider"
             android:authorities="com.ibm.mce.samples.gcm.MCE_PROVIDER"
@@ -97,18 +110,20 @@
                 android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
         </activity>
 
+        <!-- GcmBroadcastReceiver is required for handling GCM messages -->
         <receiver android:name="com.ibm.mce.sdk.gcm.GcmBroadcastReceiver" android:priority="999">
-        <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
-            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-            <category android:name="com.ibm.mce.samples.gcm" />
-        </intent-filter>
-        <intent-filter android:permission="com.google.android.c2dm.permission.SEND" android:priority="999">
-            <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <category android:name="com.ibm.mce.samples.gcm" />
+            </intent-filter>
+            <intent-filter android:permission="com.google.android.c2dm.permission.SEND" android:priority="999">
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-            <category android:name="com.ibm.mce.samples.gcm" />
-        </intent-filter>
+                <category android:name="com.ibm.mce.samples.gcm" />
+            </intent-filter>
         </receiver>
+
         <receiver android:name=".SampleGcmBroadcastReceiver" android:priority="1">
             <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -121,12 +136,17 @@
                 <category android:name="com.ibm.mce.samples.gcm" />
             </intent-filter>
         </receiver>
+
         <receiver android:name=".MceNotifier" >
             <intent-filter>
                 <action android:name="com.ibm.mce.sdk.NOTIFIER" />
             </intent-filter>
         </receiver>
+
+        <!-- NotifActionReceiver is required for notification handling -->
         <receiver android:name="com.ibm.mce.sdk.notification.NotifActionReceiver" />
+
+        <!-- AlarmReceiver is required for SDK scheduled tasks and device status updates -->
         <receiver android:name="com.ibm.mce.sdk.wi.AlarmReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -144,17 +164,30 @@
             </intent-filter>
         </receiver>
 
+        <!-- GcmIntentService is required for GCM handling -->
         <service android:name="com.ibm.mce.sdk.gcm.GcmIntentService" />
+        <!-- EventsAlarmListener is required for event handling -->
         <service android:name="com.ibm.mce.sdk.events.EventsAlarmListener" />
+        <!-- PhoneHomeIntentService is required to allow the client to contact the server to update state -->
         <service android:name="com.ibm.mce.sdk.registration.PhoneHomeIntentService" />
+        <!-- RegistrationIntentService is required for SDK registration -->
         <service android:name="com.ibm.mce.sdk.registration.RegistrationIntentService" />
+        <!-- AttributesQueueConsumer is required for attributes handling -->
         <service android:name="com.ibm.mce.sdk.attributes.AttributesQueueConsumer" />
+        <!-- SnoozeIntentService is optional. It is required only if snooze action is used -->
         <service android:name="com.ibm.mce.sdk.plugin.snooze.SnoozeIntentService" />
+        <!-- InboxUpdateService is optional. It is used for retrieving ibox updates from the MCE server. It is required only if inbox is used -->
         <service android:name="com.ibm.mce.sdk.plugin.inbox.InboxUpdateService" />
+        <!-- LocationRetrieveService is optional. It is used for retrieving the device location. It is required only if locations are enabled -->
         <service android:name="com.ibm.mce.sdk.location.LocationRetrieveService" />
+        <!-- GeofenceIntentService is optional. It is used to receive geofence events. It is required only if locations are enabled and geofences are used -->
         <service android:name="com.ibm.mce.sdk.location.GeofenceIntentService" />
+        <!-- LocationRetrieveService is optional. It is used to handle location events backoff. It is required only if locations are enabled -->
         <service android:name="com.ibm.mce.sdk.location.LocationEventsIntentService" />
+        <!-- LocationSyncAlarmListener is optional. It is used to scheduled location sync. It is required only if inbox is used -->
         <service android:name="com.ibm.mce.sdk.location.LocationSyncAlarmListener" />
+        <!-- MceBluetoothScanner is optional. It is used to run the bluetooth scan. It is required only if iBeacons is used -->
+        <service android:name="com.ibm.mce.sdk.beacons.MceBluetoothScanner" />
 
 
     </application>

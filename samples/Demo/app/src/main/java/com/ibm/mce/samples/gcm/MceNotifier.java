@@ -13,6 +13,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -22,10 +23,13 @@ import com.ibm.mce.sdk.api.MceBroadcastReceiver;
 import com.ibm.mce.sdk.api.MceSdk;
 import com.ibm.mce.sdk.api.attribute.Attribute;
 import com.ibm.mce.sdk.api.attribute.AttributesOperation;
+import com.ibm.mce.sdk.api.broadcast.EventBroadcastHandler;
 import com.ibm.mce.sdk.api.event.Event;
 import com.ibm.mce.sdk.api.notification.NotificationDetails;
 import com.ibm.mce.sdk.api.registration.RegistrationDetails;
-import com.ibm.mce.sdk.location.LocationEventsIntentService;
+import com.ibm.mce.sdk.beacons.IBeacon;
+import com.ibm.mce.sdk.location.MceGeofence;
+import com.ibm.mce.sdk.location.MceLocation;
 import com.ibm.mce.sdk.plugin.inapp.InAppManager;
 import com.ibm.mce.samples.gcm.layout.ResourcesHelper;
 
@@ -65,7 +69,7 @@ public class MceNotifier extends MceBroadcastReceiver {
         Log.i(TAG, "-- SDK delivery channel registered");
         Log.i(TAG, "Registration ID  is: " + registrationDetails.getPushToken());
 
-        showNotification(context,resourcesHelper.getString("gcm_reg_subject"), registrationDetails.getPushToken(), ACTION_GCM_REGISTRATION);
+        showNotification(context, resourcesHelper.getString("gcm_reg_subject"), registrationDetails.getPushToken(), ACTION_GCM_REGISTRATION);
     }
 
     @Override
@@ -91,7 +95,11 @@ public class MceNotifier extends MceBroadcastReceiver {
         if(notificationDetails != null && notificationDetails.getMceNotificationPayload() != null) {
             attribution = notificationDetails.getMceNotificationPayload().getAttribution();
         }
-        InAppManager.handleNotification(context, bundle, attribution);
+        String mailingId = null;
+        if(notificationDetails != null && notificationDetails.getMceNotificationPayload() != null) {
+            mailingId = notificationDetails.getMceNotificationPayload().getMailingId();
+        }
+        InAppManager.handleNotification(context, bundle, attribution, mailingId);
     }
 
     @Override
@@ -152,24 +160,6 @@ public class MceNotifier extends MceBroadcastReceiver {
     @Override
     public void onEventsSend(Context context, List<Event> events) {
         Log.i(TAG, "-- Events were sent");
-        for(Event event : events) {
-            if(LocationEventsIntentService.GEOFENCE_EVENT_TYPE.equals(event.getType())) {
-                String geofenceId = null;
-                for(Attribute attribute : event.getAttributes()) {
-                    if(LocationEventsIntentService.GEOFENCE_ID_KEY.equals(attribute.getKey())) {
-                        geofenceId = (String)attribute.getValue();
-                    }
-                }
-                if(LocationEventsIntentService.GEOFENCE_ENTER_EVENT_NAME.equals(event.getName())) {
-                    Log.d(TAG, "Entered geogence "+geofenceId);
-                    showNotification(context, "geofence enter", geofenceId, "geofence");
-                } else if(LocationEventsIntentService.GEOFENCE_EXIT_EVENT_NAME.equals(event.getName())) {
-                    Log.d(TAG, "Exiting geogence "+geofenceId);
-                    showNotification(context, "geofence exit", geofenceId, "geofence");
-                }
-            }
-        }
-
         StringBuilder builder = new StringBuilder("{");
         if(events!=null && !events.isEmpty()) {
             Event event = events.get(0);
@@ -188,7 +178,7 @@ public class MceNotifier extends MceBroadcastReceiver {
             }
         }
         builder.append("}");
-        Log.i(TAG, "Events: "+builder.toString());
+        Log.i(TAG, "Events: " + builder.toString());
     }
 
     @Override
@@ -199,6 +189,17 @@ public class MceNotifier extends MceBroadcastReceiver {
     @Override
     public void onNonMceBroadcast(Context context, Intent intent) {
         Log.i(TAG, "-- Non SDK broadcast received");
+    }
+
+    @Override
+    public void onLocationEvent(Context context, MceLocation location, LocationType locationType, LocationEventType locationEventType) {
+        Log.d(TAG, "Location event:  "+locationType.name()+" "+locationEventType.name()+" id = "+location.getId());
+        showNotification(context, locationType.name()+" "+locationEventType.name(), location.getId(), locationType.name());
+    }
+
+    @Override
+    public void onLocationUpdate(Context context, Location location) {
+        Log.d(TAG, "Location was updated "+location);
     }
 
     private void showNotification(Context context, String subject, String message, String action) {

@@ -1,5 +1,6 @@
 package com.ibm.mce.samples.gcm;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,10 +18,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.ibm.mce.sdk.location.GeofencesManager;
 import com.ibm.mce.sdk.location.LocationManager;
 import com.ibm.mce.sdk.location.LocationPreferences;
 import com.ibm.mce.sdk.location.MceGeofence;
+import com.ibm.mce.sdk.location.MceLocation;
 
 import java.util.List;
 
@@ -64,11 +65,11 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
                 enableLocations.setText(getResources().getString(R.string.enable_locations_text));
                 showGeofences.setEnabled(false);
             } else {
-                if (ContextCompat.checkSelfPermission(this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+                        ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED ||
+                        ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this,
-                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_LOCATION);
+                            new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN}, REQUEST_LOCATION);
 
                 } else {
                     LocationManager.enableLocationSupport(getApplicationContext());
@@ -79,17 +80,17 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             }
         } else if(showGeofences == view) {
             mMap.clear();
-            List<MceGeofence> geofences = GeofencesManager.getAllGeofences(getApplicationContext());
+            List<MceLocation> locations = LocationManager.getAllLocations(getApplicationContext());
 
-            for(MceGeofence geofence : geofences) {
-                LatLng center = new LatLng(geofence.getLatitude(), geofence.getLongtitude());
+            for(MceLocation location : locations) {
+                LatLng center = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addCircle(new CircleOptions()
                         .center(center)
-                        .radius(geofence.getRadius())
+                        .radius(location.getRadius())
                         .strokeColor(Color.RED)
                         .strokeWidth(1)
                         .fillColor(0x5500ff00));
-                mMap.addMarker(new MarkerOptions().position(center).title(geofence.getId()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                mMap.addMarker(new MarkerOptions().position(center).title(location.getId()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             }
         }
     }

@@ -34,7 +34,7 @@ public class EmailNotificationAction implements MceNotificationAction {
 
 
     @Override
-    public void handleAction(Context context, String type, String name, String attribution, Map<String, String> payload, boolean fromNotification) {
+    public void handleAction(Context context, String type, String name, String attribution, String mailingId, Map<String, String> payload, boolean fromNotification) {
         String valueJSONStr = payload.get(Action.KEY_VALUE);
 
         if(valueJSONStr != null && !(valueJSONStr.trim().length()==0)) {

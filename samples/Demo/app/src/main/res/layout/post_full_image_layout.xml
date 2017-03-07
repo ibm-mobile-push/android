@@ -40,16 +40,7 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:scaleType="centerInside"
-        android:layout_below="@+id/header"
-        android:layout_above="@id/buttons"
-        android:id="@+id/img"
-        android:background="@android:color/white"
-        />
+
     <LinearLayout
         android:id="@+id/buttons"
         android:orientation="horizontal"
@@ -76,6 +67,17 @@
             />
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
+        android:layout_below="@+id/header"
+        android:layout_above="@id/buttons"
+        android:id="@+id/img"
+        android:background="@android:color/white"
+        />
 
 
 

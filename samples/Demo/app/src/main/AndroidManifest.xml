@@ -21,8 +21,6 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- CALL_PHONE is optional. It is only required is the dial action is used -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <!-- READ_PHONE_STATE is required for sending device data to the MCE server -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- ACCESS_FINE_LOCATION is optional. It is only required if location services needs to use GPS location -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- ACCESS_COARSE_LOCATION is optional. It is only required if location services needs to use network location -->

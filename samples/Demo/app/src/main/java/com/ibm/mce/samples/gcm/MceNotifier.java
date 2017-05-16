@@ -39,7 +39,7 @@ import java.util.UUID;
 
 public class MceNotifier extends MceBroadcastReceiver {
 
-    private static String TAG = MceNotifier.class.getName();
+    protected static String TAG = MceNotifier.class.getName();
 
     public static String ACTION_KEY = "action";
     public static String ACTION_SDK_REGISTRATION = "sdkreg";
@@ -202,7 +202,7 @@ public class MceNotifier extends MceBroadcastReceiver {
         Log.d(TAG, "Location was updated "+location);
     }
 
-    private void showNotification(Context context, String subject, String message, String action) {
+    protected void showNotification(Context context, String subject, String message, String action) {
         ResourcesHelper resourcesHelper = new ResourcesHelper(context.getResources(), context.getPackageName());
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent actionIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
@@ -219,7 +219,7 @@ public class MceNotifier extends MceBroadcastReceiver {
 
     }
 
-    private  void setNotificationPreferences(Context context,
+    protected void setNotificationPreferences(Context context,
                                              Notification notification) {
         if (MceSdk.getNotificationsClient().getNotificationsPreference().isSoundEnabled(context)) {
             Integer sound = MceSdk.getNotificationsClient().getNotificationsPreference().getSound(context);

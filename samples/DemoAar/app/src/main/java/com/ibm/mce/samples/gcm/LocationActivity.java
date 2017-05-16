@@ -22,6 +22,7 @@ import com.ibm.mce.sdk.location.LocationManager;
 import com.ibm.mce.sdk.location.LocationPreferences;
 import com.ibm.mce.sdk.location.MceGeofence;
 import com.ibm.mce.sdk.location.MceLocation;
+import com.ibm.mce.sdk.location.LocationApi;
 
 import java.util.List;
 
@@ -80,9 +81,9 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             }
         } else if(showGeofences == view) {
             mMap.clear();
-            List<MceLocation> locations = LocationManager.getAllLocations(getApplicationContext());
+            List<LocationApi> locations = LocationManager.getAllLocations(getApplicationContext());
 
-            for(MceLocation location : locations) {
+            for(LocationApi location : locations) {
                 LatLng center = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addCircle(new CircleOptions()
                         .center(center)

@@ -162,6 +162,9 @@
             </intent-filter>
         </receiver>
 
+        <!-- LocationUpdateCaller is used for scheduling location updates -->
+        <receiver android:name="com.ibm.mce.sdk.location.LocationUpdateCaller" />
+
         <!-- GcmIntentService is required for GCM handling -->
         <service android:name="com.ibm.mce.sdk.gcm.GcmIntentService" />
         <!-- EventsAlarmListener is required for event handling -->

@@ -64,7 +64,6 @@
             android:layout_gravity="center"
             android:scaleType="centerInside"
             android:id="@+id/video"
-            android:background="@android:color/white"
             android:visibility="gone"/>
         <ImageView
             android:layout_width="fill_parent"

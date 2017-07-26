@@ -4,3 +4,4 @@ com.ibm.mce.sdk.api.broadcast
 com.ibm.mce.sdk.api.event
 com.ibm.mce.sdk.api.notification
 com.ibm.mce.sdk.api.registration
+com.ibm.mce.sdk.plugin.inbox

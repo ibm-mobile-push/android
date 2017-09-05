@@ -37,7 +37,6 @@
     <string name="attr_send_title">Click to Send</string>
     <string name="attributes_details"></string>
 
-    <string name="attribute_action_set">Set</string>
     <string name="attribute_action_update">Update</string>
     <string name="attribute_action_delete">Delete</string>
 

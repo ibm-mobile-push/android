@@ -189,6 +189,8 @@
         <service android:name="com.ibm.mce.sdk.location.LocationSyncAlarmListener" />
         <!-- MceBluetoothScanner is optional. It is used to run the bluetooth scan. It is required only if iBeacons is used -->
         <service android:name="com.ibm.mce.sdk.beacons.MceBluetoothScanner" />
+        <!-- MceBluetoothScanner is optional. It is used to verify bluetooth scan. It is required only if iBeacons is used -->
+        <service android:name="com.ibm.mce.sdk.beacons.BeaconsVerifier" />
 
 
     </application>

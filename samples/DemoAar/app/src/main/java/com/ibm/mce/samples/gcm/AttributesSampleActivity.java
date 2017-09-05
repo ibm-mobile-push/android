@@ -61,17 +61,21 @@ public class AttributesSampleActivity extends ListSampleActivity {
         return items;
     }
 
+    protected List<String> getAttributesOperations() {
+        List<String> operations = new LinkedList<String>();
+        operations.add( resourcesHelper.getString("attribute_action_update"));
+        operations.add( resourcesHelper.getString("attribute_action_delete"));
+        return operations;
+    }
+
     @Override
     protected Object[] createUIValues(String[] itemsArray) {
         Object[] uiValues = new Object[itemsArray.length];
 
-        String setActionName = resourcesHelper.getString("attribute_action_set");
-        String updateActionName = resourcesHelper.getString("attribute_action_update");
-        String deleteActionName = resourcesHelper.getString("attribute_action_delete");
-
         attributeKey = new KeyValueLayout.KeyValueString(itemsArray[ATTRIBUTE_KEY_INDEX] ,resourcesHelper.getString("attribute_default_key"), true);
         attributeValue =  new KeyValueLayout.KeyValueString(itemsArray[ATTRIBUTE_VALUE_INDEX] ,resourcesHelper.getString("attribute_default_value"), true);
-        attributeActions = new KeyValueLayout.KeyValueOptions(itemsArray[ATTRIBUTE_ACTION_INDEX] ,new String[] {setActionName, updateActionName, deleteActionName});
+        List<String> operations = getAttributesOperations();
+        attributeActions = new KeyValueLayout.KeyValueOptions(itemsArray[ATTRIBUTE_ACTION_INDEX] ,(String[])(operations.toArray(new String[operations.size()])));
 
 
         uiValues[ATTRIBUTE_KEY_INDEX] = attributeKey;
@@ -130,14 +134,17 @@ public class AttributesSampleActivity extends ListSampleActivity {
                 }
             };
 
-            if (resourcesHelper.getString("attribute_action_set").equals(action)) {
-                MceSdk.getAttributesClient(false).setUserAttributes(getApplicationContext(), attributes, callback);
-            } else if(resourcesHelper.getString("attribute_action_update").equals(action)) {
-                MceSdk.getAttributesClient(false).updateUserAttributes(getApplicationContext(), attributes, callback);
-            } else if(resourcesHelper.getString("attribute_action_delete").equals(action)) {
-                MceSdk.getAttributesClient(false).deleteUserAttributes(getApplicationContext(), attributeKeys, callback);
-            }
-
+            performAttributesAction(attributes, attributeKeys, action, callback);
         }
     }
+
+    protected void performAttributesAction(List<Attribute> attributes, List<String> attributeKeys, String action, OperationCallback<AttributesOperation> callback) {
+        if(resourcesHelper.getString("attribute_action_update").equals(action)) {
+            MceSdk.getAttributesClient(false).updateUserAttributes(getApplicationContext(), attributes, callback);
+        } else if(resourcesHelper.getString("attribute_action_delete").equals(action)) {
+            MceSdk.getAttributesClient(false).deleteUserAttributes(getApplicationContext(), attributeKeys, callback);
+        }
+    }
+
+
 }

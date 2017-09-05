@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.ibm.mce.samples.gcm"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+	
+	aaptOptions {  
+    additionalParameters "--no-version-vectors"  
+  }  
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:24.+'
+    compile 'com.google.android.gms:play-services:7.8.+'
+    compile 'com.android.support:customtabs:24.+'
+
+// Add the next 3 dependencies only if you are using inApp, you are upgrading from 3.6.4.0 or below and you want the old inApp messages to remain after the update
+    compile 'io.reactivex:rxandroid:0.24.0'
+    compile 'io.realm:realm-android:0.82.1'
+    compile 'com.google.code.gson:gson:2.2.4'
+}

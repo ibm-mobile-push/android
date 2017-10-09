@@ -4,4 +4,5 @@ IBM Mobile Push Notification provides a simple way to integrate Google Cloud mes
 
 IBM Push Notification SDK for Android provides application publishers with GCM registration, mobile app message handling and display, and inbox and in-app message support.
 
-For more information about implementing the SDK and building your mobile app messages, see the Android documentation in [IBM Knowledge Center](http://www-01.ibm.com/support/knowledgecenter/SSMRK7_3.0.0/AppPush/android_container.dita).
+For more information about implementing the SDK and building your mobile app messages, see the Android documentation in [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SSMRK7_3.0.0/AppPush/kc_welcome_apppush.html
+).

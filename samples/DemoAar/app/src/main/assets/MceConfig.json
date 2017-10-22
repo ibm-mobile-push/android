@@ -14,7 +14,7 @@
   "sessionTimeout": 20,
 
   "metricTimeInterval defines the interval in minutes between SDK events sync with the server. This is only for events that are sent to the event queue": "",
-  "metricTimeInterval": 1,
+  "metricTimeInterval": 30,
 
   "Set groupNotificationsByAttribution to true to bundle together notifications with the same attribution": "This will work on Android N and above",
   "groupNotificationsByAttribution": false,

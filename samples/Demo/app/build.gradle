@@ -30,7 +30,11 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:24.+'
-    compile 'com.google.android.gms:play-services:7.8.+'
+    compile 'com.google.android.gms:play-services-gcm:10.0.1'
+    compile 'com.google.android.gms:play-services-base:10.0.1'
+    compile 'com.google.android.gms:play-services-location:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    
     compile 'com.android.support:customtabs:24.+'
 
 // Add the next 3 dependencies only if you are using inApp, you are upgrading from 3.6.4.0 or below and you want the old inApp messages to remain after the update

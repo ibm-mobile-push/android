@@ -207,6 +207,8 @@
         <service android:name="com.ibm.mce.sdk.beacons.MceBluetoothScanner" />
         <!-- MceBluetoothScanner is optional. It is used to verify bluetooth scan. It is required only if iBeacons is used -->
         <service android:name="com.ibm.mce.sdk.beacons.BeaconsVerifier" />
+        <!-- MdeJobService is used for launching a job while the app is in the foreground. This is only used in Android O and above -->
+        <service android:name="com.ibm.mce.sdk.job.MceJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
 
 
     </application>

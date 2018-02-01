@@ -211,7 +211,8 @@ public class MceNotifier extends MceBroadcastReceiver {
                 .setSmallIcon(resourcesHelper.getDrawableId("icon"))
                 .setContentTitle(subject)
                 .setContentText(message)
-                .setContentIntent(PendingIntent.getActivity(context, action.hashCode(), actionIntent, 0));
+                .setContentIntent(PendingIntent.getActivity(context, action.hashCode(), actionIntent, 0))
+                .setChannel(SampleApplication.MCE_SAMPLE_NOTIFICATION_CHANNEL_ID);
         Notification notification = builder.build();
         setNotificationPreferences(context, notification);
         UUID notifUUID = UUID.randomUUID();
@@ -220,7 +221,7 @@ public class MceNotifier extends MceBroadcastReceiver {
     }
 
     protected void setNotificationPreferences(Context context,
-                                             Notification notification) {
+                                              Notification notification) {
         if (MceSdk.getNotificationsClient().getNotificationsPreference().isSoundEnabled(context)) {
             Integer sound = MceSdk.getNotificationsClient().getNotificationsPreference().getSound(context);
             if (sound == null) {

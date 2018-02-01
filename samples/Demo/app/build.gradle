@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
 
     defaultConfig {
         applicationId "com.ibm.mce.samples.gcm"
@@ -29,16 +29,19 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.+'
-    compile 'com.google.android.gms:play-services-gcm:10.0.1'
-    compile 'com.google.android.gms:play-services-base:10.0.1'
-    compile 'com.google.android.gms:play-services-location:10.0.1'
-    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.google.android.gms:play-services-gcm:10.2.1'
+    compile 'com.google.android.gms:play-services-base:10.2.1'
+    compile 'com.google.android.gms:play-services-location:10.2.1'
+    compile 'com.google.android.gms:play-services-maps:10.2.1'
     
-    compile 'com.android.support:customtabs:24.+'
+    compile 'com.android.support:customtabs:26.+'
 
-// Add the next 3 dependencies only if you are using inApp, you are upgrading from 3.6.4.0 or below and you want the old inApp messages to remain after the update
+
+    // Add the next 3 dependencies only if you are using inApp, you are upgrading from 3.6.4.0 or below and you want the old inApp messages to remain after the update
     compile 'io.reactivex:rxandroid:0.24.0'
     compile 'io.realm:realm-android:0.82.1'
     compile 'com.google.code.gson:gson:2.2.4'
+
 }
+

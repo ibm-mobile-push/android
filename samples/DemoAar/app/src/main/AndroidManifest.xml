@@ -108,16 +108,14 @@
                 android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
         </activity>
 
-        <!-- GcmBroadcastReceiver is required for handling GCM messages -->
-        <receiver android:name="com.ibm.mce.sdk.gcm.GcmBroadcastReceiver" android:priority="999">
+        <!-- GcmReceiver is required for handling GCM messages -->
+        <receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:priority="999">
             <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
                 <category android:name="com.ibm.mce.samples.gcm" />
             </intent-filter>
             <intent-filter android:permission="com.google.android.c2dm.permission.SEND" android:priority="999">
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
                 <category android:name="com.ibm.mce.samples.gcm" />
             </intent-filter>
         </receiver>
@@ -181,8 +179,12 @@
         <!-- LocationUpdateCaller is used for scheduling location updates -->
         <receiver android:name="com.ibm.mce.sdk.location.LocationUpdateCaller" />
 
-        <!-- GcmIntentService is required for GCM handling -->
-        <service android:name="com.ibm.mce.sdk.gcm.GcmIntentService" />
+        <!-- MceGcmListenerService is required for GCM handling -->
+        <service android:name="com.ibm.mce.sdk.gcm.MceGcmListenerService" android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
         <!-- EventsAlarmListener is required for event handling -->
         <service android:name="com.ibm.mce.sdk.events.EventsAlarmListener" />
         <!-- PhoneHomeIntentService is required to allow the client to contact the server to update state -->

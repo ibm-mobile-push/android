@@ -14,6 +14,9 @@
   "Will invalidate the existing user/channel ID if they exist when set to true": "This is for testing only. Do not ship with this set to true unless you understand what you are doing",
   "invalidateExistingUser": false,
 
+  "Will automatically reinitialize sdk after user deletion": "true for auto reinitialize, false for manual reinitialize",
+  "autoReinitialize": true,
+
   "Setting sessionEnabled to true will trigger session start and session end events": "",
   "sessionsEnabled": true,
 

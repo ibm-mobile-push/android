@@ -8,7 +8,7 @@
   "Set this to the google project number if you are using GCM or to an empty string if you are using FCM": "",
   "senderId": "YOUR GCM PROJECT ID",
 
-  "Use 'gcm' for GCM of 'fcm' for FCM": "",
+  "Use 'gcm' for GCM or 'fcm' for FCM": "",
   "messagingService": "gcm",
 
   "Will invalidate the existing user/channel ID if they exist when set to true": "This is for testing only. Do not ship with this set to true unless you understand what you are doing",
@@ -20,11 +20,11 @@
   "Setting sessionEnabled to true will trigger session start and session end events": "",
   "sessionsEnabled": true,
 
-  "sessionTimeout is the number of minutes the SDK wait while the application is in the background before sending session end event": "",
+  "sessionTimeout is the number of minutes the SDK waits while the application is in the background before sending session end event": "",
   "sessionTimeout": 20,
 
-  "metricTimeInterval defines the interval in minutes between SDK events sync with the server. This is only for events that are sent to the event queue": "",
-  "metricTimeInterval": 1,
+  "metricTimeInterval defines the interval (in minutes) that SDK events sync with the server.": "",
+  "metricTimeInterval": 3,
 
   "Set groupNotificationsByAttribution to true to bundle together notifications with the same attribution": "This will work on Android N and above",
   "groupNotificationsByAttribution": false,
@@ -41,7 +41,7 @@
   "The number of hours each log iteration will hold": "0 is for infinite time",
   "logIterationDurationInHours": 0,
 
-  "The number of log lines that will be stored in the ram before writing to the log file": "The higher this number is, more log lines will be lost in case of a crash.",
+  "The number of log lines that will be stored in a RAM buffer before writing to the log file": "The higher this number is, more log lines will be lost in case of a crash.",
   "logBufferSize": 10,
 
   "Set useInMemoryImageCache to true to use RAM cache for inbox images": "",
@@ -72,7 +72,7 @@
       "Specify the minimum results when looking for locations nearby, default is 1, minimum value is 1":"",
       "minLocationsForSearch": 1,
 
-      "Specify the maximum results when looking for locations nearby, default is 1, minimum value is 1":"",
+      "Specify the maximum results when looking for locations nearby, default is 20, minimum value is 1":"",
       "maxLocationsForSearch": 20,
 
       "Specify the location providers that will be used to retrieve the device location. 'gps' - gps location. 'network' - wifi + cellular, default is gps + network":"",

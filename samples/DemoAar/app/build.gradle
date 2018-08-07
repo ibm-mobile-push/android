@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.1"
 
     defaultConfig {
         applicationId "com.ibm.mce.samples.gcm"
-        minSdkVersion 15
-        targetSdkVersion 24
+        minSdkVersion 19
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -28,22 +28,26 @@ android {
 }
 
 dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     fileTree(dir: 'libs', include: '**/*.aar')
             .each { File file ->
         dependencies.add("compile", [
                 name: file.name.lastIndexOf('.').with { it != -1 ? file.name[0..<it] : file.name },
                 ext: 'aar'
         ])}
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.google.android.gms:play-services-gcm:10.2.1'
-    compile 'com.google.android.gms:play-services-base:10.2.1'
-    compile 'com.google.android.gms:play-services-location:10.2.1'
-    compile 'com.google.android.gms:play-services-maps:10.2.1'
-   
-    compile 'com.android.support:customtabs:26.+'
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support:support-compat:27.1.1'
+    compile 'com.google.android.gms:play-services-gcm:11.+'
+    compile 'com.google.android.gms:play-services-base:11.+'
+    compile 'com.google.android.gms:play-services-location:11.+'
+    compile 'com.google.android.gms:play-services-maps:11.+'
+    
+    compile 'com.android.support:customtabs:27.+'
 
-    // Add the next 3 dependencies only if you are using inApp, you are upgrading from 3.6.4.0 or below and you want the old inApp messages to remain after the upgrade
+
+    // Add the next 3 dependencies only if you are using inApp, you are upgrading from 3.6.4.0 or below and you want the old inApp messages to remain after the update
     compile 'io.reactivex:rxandroid:0.24.0'
-    compile 'io.realm:realm-android:0.80.3'
+    compile 'io.realm:realm-android:0.82.1'
     compile 'com.google.code.gson:gson:2.2.4'
+
 }

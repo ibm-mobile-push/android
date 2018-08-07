@@ -68,8 +68,9 @@ public class MceNotifier extends MceBroadcastReceiver {
         RegistrationDetails registrationDetails = MceSdk.getRegistrationClient().getRegistrationDetails(context);
         Log.i(TAG, "-- SDK delivery channel registered");
         Log.i(TAG, "Registration ID  is: " + registrationDetails.getPushToken());
-
-        showNotification(context, resourcesHelper.getString("gcm_reg_subject"), registrationDetails.getPushToken(), ACTION_GCM_REGISTRATION);
+        if(registrationDetails.getPushToken() != null) {
+            showNotification(context, resourcesHelper.getString("gcm_reg_subject"), registrationDetails.getPushToken(), ACTION_GCM_REGISTRATION);
+        }
     }
 
     @Override
@@ -207,12 +208,15 @@ public class MceNotifier extends MceBroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent actionIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         actionIntent.putExtra(ACTION_KEY, action);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, SampleApplication.MCE_SAMPLE_NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(resourcesHelper.getDrawableId("icon"))
                 .setContentTitle(subject)
                 .setContentText(message)
-                .setContentIntent(PendingIntent.getActivity(context, action.hashCode(), actionIntent, 0))
-                .setChannel(SampleApplication.MCE_SAMPLE_NOTIFICATION_CHANNEL_ID);
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setTicker("MCE Sample")
+                .setContentInfo("Mce Sample Info")
+                .setContentIntent(PendingIntent.getActivity(context, action.hashCode(), actionIntent, 0));
         Notification notification = builder.build();
         setNotificationPreferences(context, notification);
         UUID notifUUID = UUID.randomUUID();

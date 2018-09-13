@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:descendantFocusability="blocksDescendants" android:minHeight="@dimen/key_value_extra_large_min_height">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/keyView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/material_blue_grey_900"
+        android:textSize="@dimen/key_text_size"
+        android:paddingLeft="@dimen/key_horizontal_padding"
+        android:paddingRight="@dimen/key_horizontal_padding"
+        android:paddingTop="@dimen/key_vertical_padding"
+        android:paddingBottom="@dimen/key_vertical_padding"
+        android:focusableInTouchMode="false"
+        android:text="AAAAAA"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/valueView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="@dimen/value_horizontal_padding"
+        android:paddingRight="@dimen/value_horizontal_padding"
+        android:paddingTop="@dimen/value_vertical_padding"
+        android:paddingBottom="@dimen/value_vertical_padding"
+        android:textSize="@dimen/value_text_size"
+        android:text="BBBBBB"/>
+</RelativeLayout>

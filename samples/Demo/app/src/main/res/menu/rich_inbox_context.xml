@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Licensed Materials - Property of IBM
+5725E28, 5725S01, 5725I03
+© Copyright IBM Corp. 2014, 2015
+US Government Users Restricted Rights- Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/delete_message"
+          android:icon="@drawable/ic_action_delete"
+          android:title="@string/delete_message"
+          android:showAsAction="always" />
+</menu>

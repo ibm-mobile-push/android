@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_message">Add Message</string>
+    <string name="delete_message">Delete Message</string>
+    <string name="set_message_unread">Set Unread</string>
+    <string name="next_message">Next Message</string>
+    <string name="prev_message">Previous Message</string>
+</resources>

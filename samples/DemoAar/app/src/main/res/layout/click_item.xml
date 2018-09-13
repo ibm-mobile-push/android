@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:descendantFocusability="blocksDescendants" android:minHeight="@dimen/click_item_min_height">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemView"
+        android:textColor="@color/material_blue_grey_900"
+        android:textSize="@dimen/key_text_size"
+        android:paddingLeft="@dimen/key_horizontal_padding"
+        android:paddingRight="@dimen/key_horizontal_padding"
+        android:paddingTop="@dimen/key_vertical_padding"
+        android:paddingBottom="@dimen/key_vertical_padding"
+        android:focusableInTouchMode="false"
+        android:text="AAAAAAAA"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

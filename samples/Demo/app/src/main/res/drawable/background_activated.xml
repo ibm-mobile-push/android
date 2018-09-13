@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Licensed Materials - Property of IBM
+5725E28, 5725S01, 5725I03
+© Copyright IBM Corp. 2014, 2014
+US Government Users Restricted Rights- Use, duplication or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+-->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_activated="true"
+      android:drawable="@color/background_selected"/>
+</selector>

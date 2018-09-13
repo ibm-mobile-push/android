@@ -1,8 +1,0 @@
-{
-  "notification-actions": [
-    {
-      "type": "displayweb",
-      "class": "com.ibm.mce.sdk.plugin.displayweb.DisplayWebViewAction"
-    }
-  ]
-}

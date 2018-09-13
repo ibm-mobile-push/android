@@ -32,7 +32,7 @@
 
     <application
         android:name=".SampleApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -109,26 +109,13 @@
         </activity>
 
         <!-- GcmReceiver is required for handling GCM messages -->
-        <receiver android:name="com.google.android.gms.gcm.GcmReceiver" android:priority="999">
+        <receiver android:name="com.google.android.gms.gcm.GcmReceiver">
             <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="com.ibm.mce.samples.gcm" />
             </intent-filter>
             <intent-filter android:permission="com.google.android.c2dm.permission.SEND" android:priority="999">
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.ibm.mce.samples.gcm" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".SampleGcmBroadcastReceiver" android:priority="1">
-            <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
-                <category android:name="com.ibm.mce.samples.gcm" />
-            </intent-filter>
-            <intent-filter android:permission="com.google.android.c2dm.permission.SEND" android:priority="1">
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
                 <category android:name="com.ibm.mce.samples.gcm" />
             </intent-filter>
         </receiver>
@@ -195,21 +182,21 @@
         <service android:name="com.ibm.mce.sdk.attributes.AttributesQueueConsumer" />
         <!-- SnoozeIntentService is optional. It is required only if snooze action is used -->
         <service android:name="com.ibm.mce.sdk.plugin.snooze.SnoozeIntentService" />
-        <!-- InboxUpdateService is optional. It is used for retrieving ibox updates from the MCE server. It is required only if inbox is used -->
+        <!-- InboxUpdateService is optional. It is used for retrieving inbox updates from the MCE server. It is required only if inbox or in-app messages are used -->
         <service android:name="com.ibm.mce.sdk.plugin.inbox.InboxUpdateService" />
         <!-- LocationRetrieveService is optional. It is used for retrieving the device location. It is required only if locations are enabled -->
         <service android:name="com.ibm.mce.sdk.location.LocationRetrieveService" />
         <!-- GeofenceIntentService is optional. It is used to receive geofence events. It is required only if locations are enabled and geofences are used -->
         <service android:name="com.ibm.mce.sdk.location.GeofenceIntentService" />
-        <!-- LocationRetrieveService is optional. It is used to handle location events backoff. It is required only if locations are enabled -->
+        <!-- LocationEventsIntentService is optional. It is used to handle location events backoff. It is required only if locations are enabled -->
         <service android:name="com.ibm.mce.sdk.location.LocationEventsIntentService" />
-        <!-- LocationSyncAlarmListener is optional. It is used to scheduled location sync. It is required only if inbox is used -->
+        <!-- LocationSyncAlarmListener is optional. It is used to scheduled location sync. It is required only if locations are enabled -->
         <service android:name="com.ibm.mce.sdk.location.LocationSyncAlarmListener" />
-        <!-- MceBluetoothScanner is optional. It is used to run the bluetooth scan. It is required only if iBeacons is used -->
-        <service android:name="com.ibm.mce.sdk.beacons.MceBluetoothScanner" />
         <!-- MceBluetoothScanner is optional. It is used to verify bluetooth scan. It is required only if iBeacons is used -->
+        <service android:name="com.ibm.mce.sdk.beacons.MceBluetoothScanner" />
+        <!-- BeaconsVerifier is optional. It is used to verify Bluetooth scan. It is required only if iBeacons are used -->
         <service android:name="com.ibm.mce.sdk.beacons.BeaconsVerifier" />
-        <!-- MdeJobService is used for launching a job while the app is in the foreground. This is only used in Android O and above -->
+        <!-- MceJobService is used for launching a job while the app is in the foreground. This is only used in Android L and above -->
         <service android:name="com.ibm.mce.sdk.job.MceJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
 
 

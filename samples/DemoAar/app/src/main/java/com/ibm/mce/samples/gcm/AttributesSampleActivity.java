@@ -13,14 +13,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 import com.ibm.mce.sdk.api.MceSdk;
-import com.ibm.mce.sdk.api.OperationCallback;
-import com.ibm.mce.sdk.api.OperationResult;
 import com.ibm.mce.sdk.api.attribute.Attribute;
-import com.ibm.mce.sdk.api.attribute.AttributesOperation;
 import com.ibm.mce.sdk.api.attribute.StringAttribute;
 import com.ibm.mce.samples.gcm.layout.ClickItemLayout;
 import com.ibm.mce.samples.gcm.layout.KeyValueLayout;
@@ -28,6 +24,8 @@ import com.ibm.mce.samples.gcm.layout.KeyValueLayout;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.json.JSONException;
 
 
 public class AttributesSampleActivity extends ListSampleActivity {
@@ -110,39 +108,19 @@ public class AttributesSampleActivity extends ListSampleActivity {
             List<String> attributeKeys = new ArrayList<String>(1);
             attributeKeys.add(attribute.getKey());
             String action = attributeActions.getValue();
-            OperationCallback<AttributesOperation> callback = new OperationCallback<AttributesOperation>() {
-                @Override
-                public void onSuccess(AttributesOperation attributesOperation, OperationResult result) {
-                    Log.d(TAG, "Attributes operation was successful: "+attributesOperation.getType());
-                    AttributesSampleActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(AttributesSampleActivity.this, resourcesHelper.getString("attribute_action_succeeded"), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(AttributesOperation attributesOperation, OperationResult result) {
-                    Log.d(TAG, "Attributes operation failed: "+attributesOperation.getType()+". "+result.getMessage());
-                    AttributesSampleActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(AttributesSampleActivity.this, resourcesHelper.getString("attribute_action_failed"), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            };
-
-            performAttributesAction(attributes, attributeKeys, action, callback);
+            performAttributesAction(attributes, attributeKeys, action);
         }
     }
 
-    protected void performAttributesAction(List<Attribute> attributes, List<String> attributeKeys, String action, OperationCallback<AttributesOperation> callback) {
-        if(resourcesHelper.getString("attribute_action_update").equals(action)) {
-            MceSdk.getAttributesClient(false).updateUserAttributes(getApplicationContext(), attributes, callback);
-        } else if(resourcesHelper.getString("attribute_action_delete").equals(action)) {
-            MceSdk.getAttributesClient(false).deleteUserAttributes(getApplicationContext(), attributeKeys, callback);
+    protected void performAttributesAction(List<Attribute> attributes, List<String> attributeKeys, String action) {
+        try {
+            if (resourcesHelper.getString("attribute_action_update").equals(action)) {
+                MceSdk.getQueuedAttributesClient().updateUserAttributes(getApplicationContext(), attributes);
+            } else if (resourcesHelper.getString("attribute_action_delete").equals(action)) {
+                MceSdk.getQueuedAttributesClient().deleteUserAttributes(getApplicationContext(), attributeKeys);
+            }
+        } catch (JSONException jsone) {
+            Log.e(TAG, "Failed to send attributes");
         }
     }
 

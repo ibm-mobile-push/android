@@ -69,26 +69,6 @@ public class SampleApplication extends MceApplication {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createNotificationChannel(getApplicationContext());
         }
-
-
-        if(SampleGcmBroadcastReceiver.SENDER_ID != null) {
-            String registeredSenderId = getSharedPref(getApplicationContext()).getString("senderId", null);
-            if(!SampleGcmBroadcastReceiver.SENDER_ID.equals(registeredSenderId)) {
-                (new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                            String regid = gcm.register(SampleGcmBroadcastReceiver.SENDER_ID);
-                            Log.i(SampleGcmBroadcastReceiver.TAG, "GCM registration id: " + regid);
-                            getEditor(getApplicationContext()).putString("senderId", SampleGcmBroadcastReceiver.SENDER_ID).commit();
-                        } catch (Exception e) {
-                            Log.e(SampleGcmBroadcastReceiver.TAG, "Failed to register GCM", e);
-                        }
-                    }
-                })).start();
-            }
-        }
     }
 
     private static final String PREFS_NAME = "IBM_MCE_SAMPLE";

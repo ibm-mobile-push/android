@@ -9,6 +9,8 @@
     <string name="notif_channel_description">This is the notification channel for the MCE SDK sample application</string>
 
     <string name="sdk_reg_subject">SDK Registration</string>
+    <string name="sdk_reg_update_subject">SDK Registration Updated</string>
+    <string name="sdk_rereg_subject">SDK Re-Registration</string>
     <string name="sdk_reg_msg_prefix">Channel ID</string>
     <string name="gcm_reg_subject">GCM/FCM Registration</string>
 

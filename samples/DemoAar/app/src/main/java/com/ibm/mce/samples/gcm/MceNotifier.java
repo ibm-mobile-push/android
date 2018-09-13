@@ -68,8 +68,9 @@ public class MceNotifier extends MceBroadcastReceiver {
         RegistrationDetails registrationDetails = MceSdk.getRegistrationClient().getRegistrationDetails(context);
         Log.i(TAG, "-- SDK delivery channel registered");
         Log.i(TAG, "Registration ID  is: " + registrationDetails.getPushToken());
-
-        showNotification(context, resourcesHelper.getString("gcm_reg_subject"), registrationDetails.getPushToken(), ACTION_GCM_REGISTRATION);
+        if(registrationDetails.getPushToken() != null) {
+            showNotification(context, resourcesHelper.getString("gcm_reg_subject"), registrationDetails.getPushToken(), ACTION_GCM_REGISTRATION);
+        }
     }
 
     @Override
@@ -81,7 +82,19 @@ public class MceNotifier extends MceBroadcastReceiver {
         Log.i(TAG, "Channel ID is: " + registrationDetails.getChannelId());
         Log.i(TAG, "User ID is: " + registrationDetails.getUserId());
 
-        showNotification(context, resourcesHelper.getString("sdk_reg_subject"), resourcesHelper.getString("sdk_reg_msg_prefix") + ": " + registrationDetails.getChannelId(), ACTION_SDK_REGISTRATION);
+        showNotification(context, resourcesHelper.getString("sdk_rereg_subject"), resourcesHelper.getString("sdk_reg_msg_prefix") + ": " + registrationDetails.getChannelId(), ACTION_SDK_REGISTRATION);
+    }
+
+    @Override
+    public void onSdkRegistrationUpdated(Context context)
+    {
+        ResourcesHelper resourcesHelper = new ResourcesHelper(context.getResources(), context.getPackageName());
+        RegistrationDetails registrationDetails = MceSdk.getRegistrationClient().getRegistrationDetails(context);
+        Log.i(TAG, "-- SDK registration updated");
+        Log.i(TAG, "Channel ID is: " + registrationDetails.getChannelId());
+        Log.i(TAG, "User ID is: " + registrationDetails.getUserId());
+
+        showNotification(context, resourcesHelper.getString("sdk_reg_update_subject"), resourcesHelper.getString("sdk_reg_msg_prefix") + ": " + registrationDetails.getChannelId(), ACTION_SDK_REGISTRATION);
     }
 
     @Override
@@ -126,14 +139,19 @@ public class MceNotifier extends MceBroadcastReceiver {
 
     @Override
     public void onAttributesOperation(Context context, AttributesOperation attributesOperation) {
+        ResourcesHelper resourcesHelper = new ResourcesHelper(context.getResources(), context.getPackageName());
+        RegistrationDetails registrationDetails = MceSdk.getRegistrationClient().getRegistrationDetails(context);
         Log.i(TAG, "-- Attributes operation performed");
         Log.i(TAG, "Type is: " + attributesOperation.getType());
         if(attributesOperation.getAttributeKeys() != null) {
             Log.i(TAG, "Keys: "+attributesOperation.getAttributeKeys());
+            showNotification(context, resourcesHelper.getString("attribute_action_succeeded"), resourcesHelper.getString("attribute_action_delete")+" "+attributesOperation.getAttributeKeys(), ACTION_SDK_REGISTRATION);
         } else if(attributesOperation.getAttributes() != null) {
             String attributesStr = getAttributesString(attributesOperation.getAttributes());
             Log.i(TAG, "Attributes: "+attributesStr);
+            showNotification(context, resourcesHelper.getString("attribute_action_succeeded"), resourcesHelper.getString("attribute_action_update")+" "+attributesStr, ACTION_SDK_REGISTRATION);
         }
+
     }
 
     private String getAttributesString(List<Attribute> attributes) {
@@ -144,12 +162,12 @@ public class MceNotifier extends MceBroadcastReceiver {
         if(!attributes.isEmpty()) {
             Attribute attribute = attributes.get(0);
             builder.append("{type = ").append(attribute.getType())
-                    .append(", key = ").append(attribute.getValue())
+                    .append(", key = ").append(attribute.getKey())
                     .append(", value = ").append(attribute.getValue()).append("}");
             for(int i = 1 ; i < attributes.size() ; ++i) {
                 attribute = attributes.get(i);
                 builder.append(", {type = ").append(attribute.getType())
-                        .append(", key = ").append(attribute.getValue())
+                        .append(", key = ").append(attribute.getKey())
                         .append(", value = ").append(attribute.getValue()).append("}");
             }
         }
@@ -207,12 +225,15 @@ public class MceNotifier extends MceBroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Intent actionIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         actionIntent.putExtra(ACTION_KEY, action);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, SampleApplication.MCE_SAMPLE_NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(resourcesHelper.getDrawableId("icon"))
                 .setContentTitle(subject)
                 .setContentText(message)
-                .setContentIntent(PendingIntent.getActivity(context, action.hashCode(), actionIntent, 0))
-                .setChannel(SampleApplication.MCE_SAMPLE_NOTIFICATION_CHANNEL_ID);
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
+                .setTicker("MCE Sample")
+                .setContentInfo("Mce Sample Info")
+                .setContentIntent(PendingIntent.getActivity(context, action.hashCode(), actionIntent, 0));
         Notification notification = builder.build();
         setNotificationPreferences(context, notification);
         UUID notifUUID = UUID.randomUUID();

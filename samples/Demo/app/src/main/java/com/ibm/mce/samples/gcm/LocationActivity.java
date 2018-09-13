@@ -126,6 +126,8 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 LocationManager.enableLocationSupport(getApplicationContext());
                 showGeofences.setEnabled(true);
+                enableLocations.setText(getResources().getString(R.string.disable_locations_text));
+                showGeofences.setEnabled(mapEnabled);
             }
         }
     }

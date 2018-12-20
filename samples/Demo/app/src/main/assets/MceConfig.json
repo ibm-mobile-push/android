@@ -1,6 +1,6 @@
 {
   "Please note: if you are in Europe, you may need to change the value in 'baseUrl' below to": "https://sdk6.ibm.xtify.com",
-  "baseUrl": "https://sdk.ibm.xtify.com/3.0",
+  "baseUrl": "https://sdk8.ibm.xtify.com",
 
   "appKey": {
     "prod":"YOUR APP KEY"

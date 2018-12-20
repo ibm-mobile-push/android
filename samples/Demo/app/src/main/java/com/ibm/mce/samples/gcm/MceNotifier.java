@@ -209,10 +209,12 @@ public class MceNotifier extends MceBroadcastReceiver {
         Log.i(TAG, "-- Non SDK broadcast received");
     }
 
-    @Override
     public void onLocationEvent(Context context, MceLocation location, LocationType locationType, LocationEventType locationEventType) {
-        Log.d(TAG, "Location event:  "+locationType.name()+" "+locationEventType.name()+" id = "+location.getId());
-        showNotification(context, locationType.name()+" "+locationEventType.name(), location.getId(), locationType.name());
+        Log.d(TAG, "Location event: " + locationType.name() + " " + locationEventType.name() + " id = " + location.getId());
+        // Uncomment this line to have the device display its location for testing purposes.
+        // Do not ship with this uncommented.
+        // showNotification(context, locationType.name()+" "+locationEventType.name(), location.getId(), locationType.name()); 
+
     }
 
     @Override

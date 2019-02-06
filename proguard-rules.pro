@@ -43,6 +43,9 @@
 
 -keep public class * extends android.content.BroadcastReceiver {public *; protected *;}
 -keep public class * extends com.ibm.mce.sdk.wi.WakefulIntentService {public *; protected *;}
+-keep public class * implements com.ibm.mce.sdk.job.MceSdkJob {public *; protected *;}
+-keep public class * implements com.ibm.mce.sdk.job.MceSdkOneTimeJob {public *; protected *;}
+-keep public class * implements com.ibm.mce.sdk.job.MceSdkRepeatingJob {public *; protected *;}
 -keep public class * extends android.app.IntentService {public *; protected *;}
 -keep public class * extends android.app.Service {public *; protected *;}
 -keep public class com.ibm.mce.sdk.api.** {public *; protected *;}
@@ -60,15 +63,10 @@
 -keep public class * extends com.ibm.mce.sdk.api.notification.MceNotificationAction
 
 
-# added nov 17
--dontwarn rx.internal.util.unsafe.**
 -keep class com.ibm.mce.sdk.** { *; }
 -dontwarn com.ibm.mce.sdk.**
 -keep public class com.google.android.gms.** { *; }
 -dontwarn com.google.android.gms.**
 -dontwarn javax.**
--keepnames public class * extends io.realm.RealmObject
--keep class io.realm.** { *; }
--dontwarn io.realm.**
 -keeppackagenames com.android.providers.contacts.**
 #end

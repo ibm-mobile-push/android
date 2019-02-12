@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ibm.mce.samples.gcm" >
+    package="com.ibm.wca.samples.android" >
 
     <!-- C2D_MESSAGE is required for receiving GCM messages -->
+    <!-- Uncomment this if you use GCM
     <permission
-        android:name="com.ibm.mce.samples.gcm.permission.C2D_MESSAGE"
+        android:name="${applicationId}.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <!-- C2D_MESSAGE is required for receiving GCM messages -->
-    <uses-permission android:name="com.ibm.mce.samples.gcm.permission.C2D_MESSAGE" />
-    <!-- c2dm.permission.RECEIVE is required for receiving GCM messages -->
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    -->
     <!-- INTERNET is required for calling the MCE server -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- WAKE_LOC is required for running scheduled tasks -->
@@ -35,7 +37,8 @@
         android:allowBackup="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <!-- This is required for google play services -->
         <meta-data
@@ -45,7 +48,7 @@
         <!-- The provider is needed for the SDK database -->
         <provider
             android:name="com.ibm.mce.sdk.db.Provider"
-            android:authorities="com.ibm.mce.samples.gcm.MCE_PROVIDER"
+            android:authorities="${applicationId}.MCE_PROVIDER"
             android:exported="false" />
 
 
@@ -67,8 +70,7 @@
             android:parentActivityName=".MainSampleMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
-            >
+                android:value=".MainSampleMenuActivity" />
         </activity>
         <activity
             android:name=".AttributesSampleActivity"
@@ -76,7 +78,7 @@
             android:parentActivityName=".MainSampleMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
+                android:value=".MainSampleMenuActivity" />
         </activity>
         <activity
             android:name=".EventSampleActivity"
@@ -84,7 +86,7 @@
             android:parentActivityName=".MainSampleMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
+                android:value=".MainSampleMenuActivity" />
         </activity>
         <activity
             android:name="com.ibm.mce.sdk.plugin.displayweb.DisplayWebViewActivity">
@@ -101,14 +103,15 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".LocationActivity"
+            android:name="com.ibm.wca.samples.android.LocationActivity"
             android:label="@string/title_activity_location" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ibm.mce.samples.gcm.MainSampleMenuActivity" />
+                android:value=".MainSampleMenuActivity" />
         </activity>
 
         <!-- GcmReceiver is required for handling GCM messages -->
+        <!-- uncomment this if you use gcm
         <receiver android:name="com.google.android.gms.gcm.GcmReceiver">
             <intent-filter android:permission="com.google.android.c2dm.permission.SEND" >
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -120,7 +123,14 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".MceNotifier" >
+        <service android:name="com.ibm.mce.sdk.gcm.MceGcmListenerService" android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        -->
+
+        <receiver android:name="com.ibm.wca.samples.android.WcaNotifier" >
             <intent-filter>
                 <action android:name="com.ibm.mce.sdk.NOTIFIER" />
             </intent-filter>
@@ -166,12 +176,6 @@
         <!-- LocationUpdateCaller is used for scheduling location updates -->
         <receiver android:name="com.ibm.mce.sdk.location.LocationUpdateCaller" />
 
-        <!-- MceGcmListenerService is required for GCM handling -->
-        <service android:name="com.ibm.mce.sdk.gcm.MceGcmListenerService" android:exported="false" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
         <!-- EventsAlarmListener is required for event handling -->
         <service android:name="com.ibm.mce.sdk.events.EventsAlarmListener" />
         <!-- PhoneHomeIntentService is required to allow the client to contact the server to update state -->

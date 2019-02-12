@@ -9,10 +9,13 @@
   "senderId": "YOUR GCM PROJECT ID",
 
   "Use 'gcm' for GCM or 'fcm' for FCM": "",
-  "messagingService": "gcm",
+  "messagingService": "fcm",
 
   "Will invalidate the existing user/channel ID if they exist when set to true": "This is for testing only. Do not ship with this set to true unless you understand what you are doing",
   "invalidateExistingUser": false,
+
+  "Set this to false if you want MceApplication.init call to initiate the sdk only if the sdk was initiated before. This should be used by those who want to control the timing the first sdk initiation and not to let it happen automatically on application onCreate. For sdk initiation for the first time, use MceApplication.firstInit": "true for automatic init, false for first init on firstInit call",
+  "autoInitialize": true,
 
   "Will automatically reinitialize sdk after user deletion": "true for auto reinitialize, false for manual reinitialize",
   "autoReinitialize": true,

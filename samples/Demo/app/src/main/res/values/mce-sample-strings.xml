@@ -5,8 +5,8 @@
     <string name="title">IBM Mobile Push GCM/FCM Demo Application</string>
     <string name="action_settings">Settings</string>
 
-    <string name="notif_channel_name">MCE SDK Notification Channel</string>
-    <string name="notif_channel_description">This is the notification channel for the MCE SDK sample application</string>
+    <string name="notif_channel_name">WCA SDK Notification Channel</string>
+    <string name="notif_channel_description">This is the notification channel for the WCA SDK sample application</string>
 
     <string name="sdk_reg_subject">SDK Registration</string>
     <string name="sdk_reg_update_subject">SDK Registration Updated</string>

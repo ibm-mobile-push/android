@@ -1,0 +1,8 @@
+{
+  "notification-types": [
+    {
+      "name": "carousel",
+      "class": "com.ibm.mce.sdk.plugin.carousel.CarouselNotificationType"
+    }
+  ]
+}

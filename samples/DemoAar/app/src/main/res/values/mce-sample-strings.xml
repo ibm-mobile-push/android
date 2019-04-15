@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IBM Mobile Push</string>
-    <string name="title">IBM Mobile Push GCM/FCM Demo Application</string>
+    <string name="app_name">WCA Demo</string>
+    <string name="title">WCA Android Demo Application</string>
     <string name="action_settings">Settings</string>
 
     <string name="notif_channel_name">WCA SDK Notification Channel</string>

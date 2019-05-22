@@ -5,6 +5,7 @@
     android:layout_height="fill_parent"
     android:layout_gravity="bottom"
     android:layout_alignParentBottom="true"
+    android:clickable="true"
     android:background="#000000">
 
     <RelativeLayout

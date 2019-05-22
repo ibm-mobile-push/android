@@ -85,6 +85,7 @@ public class SampleApplication extends MceApplication {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             channel = new NotificationChannel(MCE_SAMPLE_NOTIFICATION_CHANNEL_ID, name, importance);
             channel.setDescription(description);
+            channel.setShowBadge(true);
             NotificationsPreference notificationsPreference = MceSdk.getNotificationsClient().getNotificationsPreference();
             notificationsPreference.setNotificationChannelId(context, MCE_SAMPLE_NOTIFICATION_CHANNEL_ID);
             notificationManager.createNotificationChannel(channel);

@@ -49,7 +49,10 @@
 -keep public class * extends android.app.IntentService {public *; protected *;}
 -keep public class * extends android.app.Service {public *; protected *;}
 -keep public class com.ibm.mce.sdk.api.** {public *; protected *;}
--keep public class com.ibm.mce.sdk.events.** {public *; protected *;}
+-keep public class com.ibm.mce.sdk.events.** {public *; protected 
+-keep public class com.ibm.mce.sdk.attributes.** {public *; protected *;}
+-keep public class com.ibm.mce.sdk.db.** {public *; protected *;}
+-keep public class com.ibm.mce.sdk.encryption.** {public *; protected *;}
 -keep public class com.ibm.mce.sdk.notification.NotificationsUtility {public *; protected *;}
 -keep public class com.ibm.mce.sdk.notification.NotificationsUtility$* {public *; protected *;}
 -keep public class com.ibm.mce.sdk.Preferences {public *; protected *;}

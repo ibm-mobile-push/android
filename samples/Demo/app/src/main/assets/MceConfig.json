@@ -100,5 +100,19 @@
       "Specify how much time the sdk will wait between iBeacons scan sessions while the application is in the background, default is 5 minutes": "",
       "beaconBackgroundScanInterval": 300
     }
+  },
+
+  "This section is for database configuration": "",
+  "database": {
+    "This defines the sdk database implementation.": "If this is not defined, the default sdk database (android sqlite) will be set",
+    "impl": "com.ibm.mce.sdk.db.android.AndroidDatabaseImpl",
+    "This defines the sdk database will be encrypted": "The default sdk database does not support encryption so this can be set to true only when using a ccustom database",
+    "encrypted": false,
+    "This defines the sdk encryption provider implementation.": "If this is not defined, the default sdk encryption provider (keystore based for Android 18 and above and weak encryption for Android 17 and below) will be set",
+    "encryptionProvider": "com.ibm.mce.sdk.encryption.DefaultSdkEncryptionProvider",
+    "This defines the sdk database secret key generator implementation.": "If this is not defined, the default sdk database secret key generator (random uuid) will be set",
+    "keyGenerator": "com.ibm.mce.sdk.db.DefaultSdkDatabaseSecretKeyGenerator",
+    "This defines how many days to keep a database key before replacing it": "minimum value is 1",
+    "keyRotationIntervalInDays": 30
   }
 }

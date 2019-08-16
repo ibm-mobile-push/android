@@ -1,6 +1,8 @@
 com.ibm.mce.sdk.api
 com.ibm.mce.sdk.api.attribute
 com.ibm.mce.sdk.api.broadcast
+com.ibm.mce.sdk.api.db
+com.ibm.mce.sdk.api.encryption
 com.ibm.mce.sdk.api.event
 com.ibm.mce.sdk.api.fcm
 com.ibm.mce.sdk.api.notification

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ibm.wca.samples.android" >
+    package="com.ibm.wca.samples.android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- C2D_MESSAGE is required for receiving GCM messages -->
     <!-- Uncomment this if you use GCM
@@ -33,12 +34,17 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
+        tools:replace="android:allowBackup"
         android:name=".SampleApplication"
         android:allowBackup="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <!-- This is required for google play services -->
         <meta-data
@@ -136,6 +142,8 @@
             </intent-filter>
         </receiver>
 
+        <!-- GeofenceBroadcastReceiver is optional. It is used to receive geofence events. It is required only if locations are enabled and geofences are used -->
+        <receiver android:name="com.ibm.mce.sdk.location.GeofenceBroadcastReceiver"  android:enabled="true" android:exported="true"/>
         <!-- NotifActionReceiver is required for notification handling -->
         <receiver android:name="com.ibm.mce.sdk.notification.NotifActionReceiver" />
 
@@ -190,8 +198,6 @@
         <service android:name="com.ibm.mce.sdk.plugin.inbox.InboxUpdateService" />
         <!-- LocationRetrieveService is optional. It is used for retrieving the device location. It is required only if locations are enabled -->
         <service android:name="com.ibm.mce.sdk.location.LocationRetrieveService" />
-        <!-- GeofenceIntentService is optional. It is used to receive geofence events. It is required only if locations are enabled and geofences are used -->
-        <service android:name="com.ibm.mce.sdk.location.GeofenceIntentService" />
         <!-- LocationEventsIntentService is optional. It is used to handle location events backoff. It is required only if locations are enabled -->
         <service android:name="com.ibm.mce.sdk.location.LocationEventsIntentService" />
         <!-- LocationSyncAlarmListener is optional. It is used to scheduled location sync. It is required only if locations are enabled -->

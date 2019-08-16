@@ -29,12 +29,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="20dp"
                 android:id="@+id/headerTitle"
+                android:ellipsize="middle"
                 android:layout_alignParentTop="true"
                 />
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="20dp"
                 android:id="@+id/subHeader"
+                android:ellipsize="middle"
                 android:layout_alignParentBottom="true"
                 />
         </RelativeLayout>
@@ -58,6 +60,7 @@
         android:id="@+id/text"
         android:background="@android:color/white"
         android:visibility="gone"
+        android:ellipsize="middle"
         />
 
     <LinearLayout
@@ -70,19 +73,28 @@
         android:background="@android:color/white"
         android:visibility="gone">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:singleLine="true"
             android:layout_height="40dp"
             android:id="@+id/button1"
+            android:ellipsize="middle"
             />
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:singleLine="true"
             android:layout_height="40dp"
             android:id="@+id/button2"
+            android:ellipsize="middle"
             />
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:singleLine="true"
             android:layout_height="40dp"
             android:id="@+id/button3"
+            android:ellipsize="middle"
             />
 
     </LinearLayout>
